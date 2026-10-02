@@ -1,0 +1,33 @@
+# AirBridge build outputs and runtime data
+desktop/airbridge
+desktop/airbridge.exe
+desktop/received_files/
+
+# Flutter and Dart generated files
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.pub/
+mobile/build/
+mobile/.idea/
+mobile/*.iml
+
+# Android build outputs and local configuration
+mobile/android/.gradle/
+mobile/android/local.properties
+mobile/android/app/build/
+mobile/android/app/debug/
+mobile/android/app/profile/
+mobile/android/app/release/
+
+# IDE, OS, and diagnostic files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+*.log
+*.tmp
+*.swp
+.DS_Store
+Thumbs.db

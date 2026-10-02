@@ -15,6 +15,10 @@
 #include <filesystem>
 #include <cstring>
 
+#ifndef AIRBRIDGE_VERSION
+#define AIRBRIDGE_VERSION "dev"
+#endif
+
 #ifdef _WIN32
     #include <windows.h>
     typedef int SockLenType;
@@ -960,7 +964,12 @@ void tcp_listen_thread() {
     close_socket(s);
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    if (argc > 1 && std::string(argv[1]) == "--version") {
+        std::cout << "AirBridge " << AIRBRIDGE_VERSION << "\n";
+        return 0;
+    }
+
     init_sockets();
     thread_pool = new ThreadPool(8);
     
@@ -968,9 +977,10 @@ int main() {
     my_ip = get_local_ip();
 
     std::cout << "==================================================\n";
-    std::cout << "     AIRBRIDGE SECURE LOCAL HTTP SHARING (GUI)    \n";
+    std::cout << "     AIRBRIDGE LOCAL HTTP SHARING (GUI)           \n";
     std::cout << "==================================================\n";
     std::cout << " Host Name:   " << my_name << "\n";
+    std::cout << " Version:     " << AIRBRIDGE_VERSION << "\n";
     std::cout << " Local IP:    " << my_ip << "\n";
     std::cout << " HTTP Port:   " << TCP_PORT << "\n";
     std::cout << "==================================================\n\n";

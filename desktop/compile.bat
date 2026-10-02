@@ -1,12 +1,16 @@
 @echo off
+setlocal
 echo ====================================================
 echo             Compiling AirBridge for Windows        
 echo ====================================================
 
+set AIRBRIDGE_VERSION=dev
+if exist ..\VERSION set /p AIRBRIDGE_VERSION=<..\VERSION
+
 where g++ >nul 2>nul
 if %ERRORLEVEL% equ 0 (
     echo Found g++. Compiling with GCC...
-    g++ -O3 -std=c++17 main.cpp -o airbridge.exe -lws2_32 -lshell32
+    g++ -O3 -std=c++17 -DAIRBRIDGE_VERSION=\"%AIRBRIDGE_VERSION%\" main.cpp -o airbridge.exe -lws2_32 -lshell32
     if %ERRORLEVEL% equ 0 (
         echo Compilation successful! Created airbridge.exe
         exit /b 0
@@ -18,7 +22,7 @@ if %ERRORLEVEL% equ 0 (
 where clang++ >nul 2>nul
 if %ERRORLEVEL% equ 0 (
     echo Found clang++. Compiling with Clang...
-    clang++ -O3 -std=c++17 main.cpp -o airbridge.exe -lws2_32 -lshell32
+    clang++ -O3 -std=c++17 -DAIRBRIDGE_VERSION=\"%AIRBRIDGE_VERSION%\" main.cpp -o airbridge.exe -lws2_32 -lshell32
     if %ERRORLEVEL% equ 0 (
         echo Compilation successful! Created airbridge.exe
         exit /b 0

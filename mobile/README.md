@@ -1,17 +1,22 @@
-# airbridge
+# AirBridge Android client
 
-A new Flutter project.
+This directory contains the Flutter Android client for AirBridge.
 
-## Getting Started
+## Install and run
 
-This project is a starting point for a Flutter application.
+```bash
+flutter pub get
+flutter run
+```
 
-A few resources to get you started if this is your first Flutter project:
+Grant the storage/media permissions on first launch. The app starts LAN discovery automatically; both the Android device and its peer must be on the same local network.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Build
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter analyze
+flutter test
+flutter build apk --release
+```
+
+The root [README](../README.md) contains full desktop setup, network requirements, usage, troubleshooting, and security information. Follow [CONTRIBUTING.md](../CONTRIBUTING.md) for versioning and release steps.

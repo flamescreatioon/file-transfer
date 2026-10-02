@@ -4,6 +4,8 @@ AirBridge is a local-network file and clipboard sharing tool. It connects a nati
 
 The desktop app also starts a browser-based dashboard for sending files and clipboard text from a computer.
 
+**Current release:** [`1.0.0`](VERSION)
+
 > [!WARNING]
 > AirBridge currently uses unauthenticated, unencrypted HTTP. Use it only on a private network that you trust. Anyone who can reach TCP port `53536` may be able to send clipboard text, access the dashboard, upload files, or download received files.
 
@@ -117,6 +119,13 @@ flutter build apk --release
 
 The Android application ID is `com.airbridge.airbridge` and the current app version is `1.0.0+1`.
 
+To confirm the version of a compiled desktop binary:
+
+```powershell
+cd desktop
+.\airbridge.exe --version
+```
+
 ## How to use it
 
 1. Start AirBridge on the desktop and Android device.
@@ -166,6 +175,49 @@ Each client runs an HTTP server on TCP port `53536`. Requests carrying `X-Device
 - Android state and protocol handling live in `mobile/lib/services/airbridge_state.dart`.
 - The mobile UI is in `mobile/lib/views/home_view.dart` and uses `provider` for state management.
 - The desktop build uses C++17 and links `ws2_32` and `shell32` on Windows.
+
+## Git, installation, and release workflow
+
+The repository is configured to track source, configuration, documentation, and dependency lockfiles. Generated files, local IDE settings, received files, executables, and Android build outputs are ignored by [`.gitignore`](.gitignore). Text line endings are normalized through [`.gitattributes`](.gitattributes).
+
+### Clone and install
+
+```powershell
+git clone https://github.com/flamescreatioon/file-transfer.git
+cd file-transfer
+
+# Android dependencies
+cd mobile
+flutter pub get
+cd ..
+
+# Build the desktop application
+cd desktop
+.\compile.bat
+```
+
+### Day-to-day Git workflow
+
+```powershell
+git switch main
+git pull --ff-only
+git switch -c feat/short-description
+
+# Make and verify your change, then inspect it.
+git status
+git diff
+git add <files>
+git commit -m "feat: short description"
+git push -u origin feat/short-description
+```
+
+Do not add `desktop/received_files/`, build products, or local environment files. If you accidentally stage one, unstage it with `git restore --staged <path>`.
+
+### Release versioning
+
+AirBridge follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html): `MAJOR.MINOR.PATCH`. [`VERSION`](VERSION) is the source of truth. Keep the semantic portion of `mobile/pubspec.yaml` aligned with it; increment the Android build number after `+` for every published Android build.
+
+For the full contributor and release checklist, see [CONTRIBUTING.md](CONTRIBUTING.md) and [CHANGELOG.md](CHANGELOG.md).
 
 ### Verification
 
